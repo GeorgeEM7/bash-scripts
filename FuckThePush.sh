@@ -2,6 +2,7 @@
 
 # Default mainRepoPath
 mainRepoPath="/home/geoem/George/dev/repos/odoosh"
+defaultCommitMessage="Add/Modify"
 
 # Parse flags
 while getopts ":os" opt; do
@@ -24,9 +25,9 @@ while getopts ":os" opt; do
 done
 shift $((OPTIND -1))
 
-# Check if three arguments are provided
-if [ "$#" -ne 3 ]; then
-  echo "Usage: $0 [-o|-s] <path-to-directory> <partial-repo-name> <branch-name>"
+# Check if at least three arguments are provided
+if [ "$#" -lt 3 ]; then
+  echo "Usage: $0 [-o|-s] <path-to-directory> <partial-repo-name> <branch-name> [<commit-message>]"
   exit 1
 fi
 
@@ -34,6 +35,7 @@ fi
 directoryPath=$1
 partialRepoName=$2
 branchName=$3
+commitMessage=${4:-$defaultCommitMessage}
 
 # Find repositories matching the partial name
 repoPaths=($(find "$mainRepoPath" -maxdepth 1 -type d -name "*$partialRepoName*" -print))
@@ -103,8 +105,8 @@ cp -r "$directoryPath" "$repoPath"
 # Add all changes
 git add .
 
-# Commit with a fixed message
-git commit -m "Add/Modify"
+# Commit with the provided or default message
+git commit -m "$commitMessage"
 
 # Check if commit was successful
 if [ $? -ne 0 ]; then
