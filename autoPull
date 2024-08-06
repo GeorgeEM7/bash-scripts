@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Personal access token (PAT)
+PAT="7555h8h9g5d4f6666dfsd"
+
+# Remote repository URL with PAT
+REMOTE_REPO="https://GeorgeEM:${PAT}@github.com/your-username/your-repo.git"
+
+# Local repository directory
+LOCAL_REPO="/home/devops/projects/repo"
+
+# Change directory to the local repository
+cd "$LOCAL_REPO" || exit 1
+
+# Loop indefinitely
+while true; do
+  # Pull changes from the remote repository
+  git pull "$REMOTE_REPO" master
+
+  # Sleep x seconds - infint loop - it will be a running procces in the memory - not the best solution
+  sleep 18000
+done
