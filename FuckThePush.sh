@@ -2,6 +2,7 @@
 
 # Default mainRepoPath
 mainRepoPath="/home/geoem/George/dev/repos/odoosh"
+# Default commit message if no commit wa passed
 defaultCommitMessage="Add/Modify"
 
 # Parse flags
